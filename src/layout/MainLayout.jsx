@@ -1,4 +1,4 @@
-import { Flex, Image, Layout } from "antd";
+import { Avatar, DatePicker, Flex, Image, Input, Layout, Space } from "antd";
 import DashboardIcon from "../components/icons/dashboard-icon";
 import TaskIcon from "../components/icons/task-icon";
 import AnalyticsIcon from "../components/icons/analytics-icon";
@@ -7,6 +7,8 @@ import MessageIcon from "../components/icons/message-icon";
 import SettingIcon from "../components/icons/setting-icon";
 import LogoutIcon from "../components/icons/logout-icon";
 import { useState } from "react";
+import SearchIcon from "../components/icons/search-icon";
+import dayjs from "dayjs";
 const { Header, Sider, Content } = Layout;
 
 const headerStyle = {
@@ -18,7 +20,7 @@ const contentStyle = {
   padding: "40px",
 };
 const siderStyle = {
-  padding: "40px 35px",
+  padding: "20px 35px",
   backgroundColor: "var(--white-color)",
   height: "100vh",
   textAlign: "center",
@@ -41,11 +43,11 @@ const menuList = [
 
 const MainLayout = ({ children }) => {
   const [selectedMenu, setSelectedMenu] = useState("Task");
-
+  const dateFormat = "YYYY/MM/DD";
   return (
     <Layout style={layoutStyle}>
       <Sider width="260px" style={siderStyle}>
-        <Image src="logo.png" width={"45px"} />
+        <Image src="logo.png" width={"50px"} />
         <Flex vertical gap={"middle"} style={{ marginTop: "24px" }}>
           {menuList.map((menuItem) => (
             <Flex
@@ -75,7 +77,30 @@ const MainLayout = ({ children }) => {
         </Flex>
       </Sider>
       <Layout>
-        <Header style={headerStyle}>Header</Header>
+        <Header style={headerStyle}>
+          <Flex align="center" justify="space-between">
+            <h2>To Do</h2>
+            <Flex gap={"middle"} align="center">
+              <Input
+                size="medium"
+                placeholder="Search"
+                prefix={<SearchIcon />}
+              />
+              <DatePicker
+                style={{ width: "200px" }}
+                defaultValue={dayjs("2015/01/01", dateFormat)}
+                format={dateFormat}
+                size="medium"
+              />
+              <Space wrap size={16}>
+                <Avatar
+                  size={45}
+                  icon={<ProfileIcon color="var(--text-50)" />}
+                />
+              </Space>
+            </Flex>
+          </Flex>
+        </Header>
         <Content style={contentStyle}>{children}</Content>
       </Layout>
     </Layout>

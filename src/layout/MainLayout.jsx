@@ -43,7 +43,8 @@ const menuList = [
 
 const MainLayout = ({ children }) => {
   const [selectedMenu, setSelectedMenu] = useState("Task");
-  const dateFormat = "YYYY/MM/DD";
+  const dateFormat = "DD/MM/YYYY";
+  console.log(dayjs("2015/01/01", dateFormat));
   return (
     <Layout style={layoutStyle}>
       <Sider width="260px" style={siderStyle}>
@@ -88,7 +89,7 @@ const MainLayout = ({ children }) => {
               />
               <DatePicker
                 style={{ width: "200px" }}
-                defaultValue={dayjs("2015/01/01", dateFormat)}
+                defaultValue={dayjs(dayjs().format(dateFormat), dateFormat)}
                 format={dateFormat}
                 size="medium"
               />

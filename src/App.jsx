@@ -1,9 +1,10 @@
+import MainContent from "./components/main-content/MainContent";
 import MainLayout from "./layout/MainLayout";
 
 function App() {
   return (
     <MainLayout>
-      <p>Hello</p>
+      <MainContent />
     </MainLayout>
   );
 }

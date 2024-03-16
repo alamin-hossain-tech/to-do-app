@@ -12,13 +12,16 @@
   --primary-color: #28a5ff;
   --text-color: #1e1e1e;
   --text-50: #6f6f6f;
+  --text-10: #b7b7b7;
   --body-color: #dcdcdc;
   --white-color: #fff;
+  --green-100: #14cc26;
 }
 
 body {
   margin: 0;
   background-color: var(--body-color);
+  color: var(--text-color);
 }
 
 h1,

@@ -3,8 +3,11 @@ import EditIcon from "../icons/edit-icon";
 import DeleteIcon from "../icons/delete-icon";
 import { useDispatch } from "react-redux";
 import { deleteTask } from "../../app/features/to-do/todo.slice";
+import { useState } from "react";
+import EditTaskModal from "./EditTaskModal";
 
 const TaskItem = ({ todo, path }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
   const getColor = (priority) => {
     switch (priority) {
@@ -39,7 +42,11 @@ const TaskItem = ({ todo, path }) => {
         <p style={{ textAlign: "justify" }}>{todo.description}</p>
       </div>
       <Space>
-        <EditIcon cursor="pointer" />
+        <EditIcon
+          onClick={() => setIsModalOpen(true)}
+          cursor="pointer"
+          color="var(--text-50)"
+        />
 
         <Popconfirm
           title="Delete the task"
@@ -58,6 +65,12 @@ const TaskItem = ({ todo, path }) => {
           <DeleteIcon color="red" cursor="pointer" />
         </Popconfirm>
       </Space>
+      <EditTaskModal
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        todo={todo}
+        path={path}
+      />
     </Flex>
   );
 };

@@ -30,9 +30,21 @@ const todoSlice = createSlice({
         draftState[path] = draftState[path].filter((item) => item.id !== id);
       });
     },
+    editTask: (state, action) => {
+      const { path, id, value } = action.payload;
+      return produce(state, (draftState) => {
+        const index = draftState[path].findIndex((item) => item.id === id);
+        if (index !== -1) {
+          draftState[path][index] = {
+            ...draftState[path][index],
+            ...value,
+          };
+        }
+      });
+    },
   },
 });
 
-export const { addTask, deleteTask, mutateTask } = todoSlice.actions;
+export const { addTask, deleteTask, mutateTask, editTask } = todoSlice.actions;
 
 export default todoSlice.reducer;

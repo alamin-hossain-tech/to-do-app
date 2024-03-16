@@ -54,6 +54,7 @@ const MainLayout = ({ children }) => {
             <Flex
               style={{
                 paddingInline: "12px",
+                paddingBlock: 6,
                 borderRadius: "8px",
                 backgroundColor:
                   selectedMenu === menuItem.name

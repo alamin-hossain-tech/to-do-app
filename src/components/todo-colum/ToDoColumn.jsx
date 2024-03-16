@@ -7,13 +7,8 @@ import TaskItem from "../task-item/TaskItem";
 
 const ToDoColumn = forwardRef((props, ref) => {
   const { toDos } = useSelector((state) => state.toDos);
-  console.log(toDos);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleSave = (e) => {
-    e.preventDefault();
-    console.log("submitted");
-  };
+
   return (
     <div ref={ref} style={{ flex: 1 }}>
       <Space direction="vertical" size={12} style={{ width: "100%" }}>
@@ -60,11 +55,7 @@ const ToDoColumn = forwardRef((props, ref) => {
         </Button>
       </Space>
       {/* modal for adding task */}
-      <AddTaskModal
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        handleSave={handleSave}
-      />
+      <AddTaskModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </div>
   );
 });

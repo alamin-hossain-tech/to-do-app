@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 import { produce } from "immer";
 
 const initialState = {
@@ -48,3 +48,23 @@ const todoSlice = createSlice({
 export const { addTask, deleteTask, mutateTask, editTask } = todoSlice.actions;
 
 export default todoSlice.reducer;
+
+export const selectFilteredToDos = createSelector(
+  [(state) => state.toDos, (_, priority) => priority],
+  (toDos, priority) => {
+    switch (priority) {
+      case "all":
+        return toDos;
+      default:
+        return {
+          toDos: toDos.toDos.filter((item) => item.priority === priority),
+          inProgress: toDos.inProgress.filter(
+            (item) => item.priority === priority
+          ),
+          completed: toDos.completed.filter(
+            (item) => item.priority === priority
+          ),
+        };
+    }
+  }
+);

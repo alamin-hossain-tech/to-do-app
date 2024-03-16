@@ -2,26 +2,36 @@ import { Divider, Flex, Select } from "antd";
 import CompletedColumn from "../completed-column/CompletedColumn";
 import InProgressColumn from "../in-progress-column/InProgressColumn";
 import ToDoColumn from "../todo-colum/ToDoColumn";
+import { useState } from "react";
 
 const MainContent = () => {
+  const [query, setQuery] = useState("all");
   return (
     <Flex gap={"large"}>
       <div style={{ flex: 3 }}>
         <Flex justify="space-between">
           <h3>All my task</h3>
           <Select
+            onChange={(e) => {
+              if (e) {
+                setQuery(e);
+              } else {
+                setQuery("all");
+              }
+            }}
+            allowClear
             placeholder="Filter"
             style={{ width: 150 }}
             options={[
-              { value: "jack", label: "Jack" },
-              { value: "lucy", label: "Lucy" },
-              { value: "Yiminghe", label: "yiminghe" },
+              { value: "low", label: "Low" },
+              { value: "medium", label: "Medium" },
+              { value: "high", label: "High" },
             ]}
           />
         </Flex>
         <Divider />
         <Flex gap={"large"}>
-          <ToDoColumn />
+          <ToDoColumn query={query} />
           <InProgressColumn />
           <CompletedColumn />
         </Flex>

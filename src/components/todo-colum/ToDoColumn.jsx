@@ -4,11 +4,14 @@ import { useSelector } from "react-redux";
 import PlusIcon from "../icons/plus-icon";
 import AddTaskModal from "./AddTaskModal";
 import TaskItem from "../task-item/TaskItem";
+import { selectFilteredToDos } from "../../app/features/to-do/todo.slice";
 
-const ToDoColumn = forwardRef((props, ref) => {
-  const { toDos } = useSelector((state) => state.toDos);
+const ToDoColumn = forwardRef(({ query }, ref) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const { toDos } = useSelector((state) => selectFilteredToDos(state, query));
+
+  //   console.log({ to });
   return (
     <div ref={ref} style={{ flex: 1 }}>
       <Space direction="vertical" size={12} style={{ width: "100%" }}>

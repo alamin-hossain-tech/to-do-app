@@ -2,9 +2,24 @@ import { Button, Divider, Flex, Input, Modal, Select, Space } from "antd";
 import PlusIcon from "../icons/plus-icon";
 import { useState } from "react";
 import TextArea from "antd/es/input/TextArea";
+import { useDispatch, useSelector } from "react-redux";
+import { mutateTask } from "../../app/features/to-do/todo.slice";
 
 const MainContent = () => {
+  const tasks = useSelector((state) => state.toDos);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const dispatch = useDispatch();
+  console.log(tasks);
+  const handleSave = () => {
+    dispatch(
+      mutateTask({
+        path: "toDos",
+        value: {
+          hello: "1",
+        },
+      })
+    );
+  };
   return (
     <Flex gap={"large"}>
       <div style={{ flex: 3 }}>
@@ -54,7 +69,7 @@ const MainContent = () => {
             <Modal
               title="Add New Task"
               open={isModalOpen}
-              //   onOk={handleOk}
+              onOk={handleSave}
               onCancel={() => setIsModalOpen(false)}
               okText="Save"
               okButtonProps={{ type: "primary" }}

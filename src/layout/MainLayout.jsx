@@ -44,7 +44,7 @@ const menuList = [
 const MainLayout = ({ children }) => {
   const [selectedMenu, setSelectedMenu] = useState("Task");
   const dateFormat = "DD/MM/YYYY";
-  console.log(dayjs("2015/01/01", dateFormat));
+
   return (
     <Layout style={layoutStyle}>
       <Sider width="260px" style={siderStyle}>

@@ -1,26 +1,51 @@
-import { Input, Modal, Select, Space } from "antd";
+import { Button, Flex, Form, Input, Modal, Select, Space } from "antd";
 import TextArea from "antd/es/input/TextArea";
+import { useDispatch } from "react-redux";
+import { addTask } from "../../app/features/to-do/todo.slice";
 
-const AddTaskModal = ({ isModalOpen, setIsModalOpen, handleSave }) => {
+const AddTaskModal = ({ isModalOpen, setIsModalOpen }) => {
+  const [form] = Form.useForm();
+  const dispatch = useDispatch();
+  const handleSubmit = (value) => {
+    dispatch(
+      addTask({
+        path: "toDos",
+        value,
+      })
+    );
+    form.resetFields();
+    setIsModalOpen(false);
+  };
+
   return (
     <Modal
       title="Add New Task"
+      centered
       open={isModalOpen}
-      onOk={handleSave}
+      footer={[]}
       onCancel={() => setIsModalOpen(false)}
-      okText="Save"
-      okButtonProps={{ type: "primary" }}
     >
-      <Space size={12} direction="vertical" style={{ width: "100%" }}>
-        <div>
-          <div>
-            <label htmlFor="priority">Select Priority</label>
-          </div>
+      <Form
+        form={form}
+        onFinish={handleSubmit}
+        name="task-save-form"
+        labelCol={{
+          span: 6,
+        }}
+      >
+        <Form.Item
+          label="Select Priority"
+          name={"priority"}
+          rules={[
+            {
+              required: true,
+              message: "Please select priority",
+            },
+          ]}
+        >
           <Select
-            id="priority"
             placeholder="Select priority"
             allowClear
-            style={{ width: 150 }}
             options={[
               {
                 label: (
@@ -72,16 +97,33 @@ const AddTaskModal = ({ isModalOpen, setIsModalOpen, handleSave }) => {
               },
             ]}
           />
-        </div>
-        <div>
-          <label htmlFor="name">Task Name</label>
-          <Input id="name" />
-        </div>
-        <div>
-          <label htmlFor="description">Task Description</label>
-          <TextArea id="description" rows={4} />
-        </div>
-      </Space>
+        </Form.Item>
+        <Form.Item
+          name={"name"}
+          label="Task Name"
+          rules={[
+            {
+              required: true,
+              message: "Please enter a name please",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item initialValue={""} name={"description"} label="Description">
+          <TextArea rows={4} />
+        </Form.Item>
+        <Form.Item>
+          <Flex justify="end" gap={"middle"}>
+            <Button danger onClick={() => setIsModalOpen(false)}>
+              Cancel
+            </Button>
+            <Button type="primary" htmlType="submit">
+              Save
+            </Button>
+          </Flex>
+        </Form.Item>
+      </Form>
     </Modal>
   );
 };

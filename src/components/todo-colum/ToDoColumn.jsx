@@ -1,16 +1,19 @@
 import { Button, Flex, Space } from "antd";
 import { forwardRef, useState } from "react";
+import { useSelector } from "react-redux";
 import PlusIcon from "../icons/plus-icon";
 import AddTaskModal from "./AddTaskModal";
-import { useDispatch, useSelector } from "react-redux";
-import { mutateTask } from "../../app/features/to-do/todo.slice";
+import TaskItem from "../task-item/TaskItem";
 
 const ToDoColumn = forwardRef((props, ref) => {
-  const tasks = useSelector((state) => state.toDos);
-  const dispatch = useDispatch();
-  console.log(tasks);
+  const { toDos } = useSelector((state) => state.toDos);
+  console.log(toDos);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleSave = () => {};
+  const handleSave = (e) => {
+    e.preventDefault();
+    console.log("submitted");
+  };
   return (
     <div ref={ref} style={{ flex: 1 }}>
       <Space direction="vertical" size={12} style={{ width: "100%" }}>
@@ -33,6 +36,19 @@ const ToDoColumn = forwardRef((props, ref) => {
           ></div>
           <h4>To Do</h4>
         </Flex>
+        <div
+          style={{
+            maxHeight: "calc(100vh - 340px)",
+            overflow: "scroll",
+            scrollbarGutter: "stable",
+          }}
+        >
+          <Space direction="vertical">
+            {toDos?.map((todo) => (
+              <TaskItem key={todo.id} todo={todo} path="toDos" />
+            ))}
+          </Space>
+        </div>
         <Button
           size="large"
           type="primary"

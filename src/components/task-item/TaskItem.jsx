@@ -1,9 +1,9 @@
 import { Flex, Popconfirm, Space } from "antd";
-import EditIcon from "../icons/edit-icon";
-import DeleteIcon from "../icons/delete-icon";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { deleteTask } from "../../app/features/to-do/todo.slice";
-import { useState } from "react";
+import DeleteIcon from "../icons/delete-icon";
+import EditIcon from "../icons/edit-icon";
 import EditTaskModal from "./EditTaskModal";
 
 const TaskItem = ({ todo, path }) => {
@@ -24,7 +24,6 @@ const TaskItem = ({ todo, path }) => {
   return (
     <Flex
       justify="space-between"
-      // align="start"
       style={{ backgroundColor: "white", padding: 16, borderRadius: 8 }}
       gap={"middle"}
     >

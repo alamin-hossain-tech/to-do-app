@@ -5,13 +5,12 @@ import PlusIcon from "../icons/plus-icon";
 import AddTaskModal from "./AddTaskModal";
 import TaskItem from "../task-item/TaskItem";
 import { selectFilteredToDos } from "../../app/features/to-do/todo.slice";
+import { Draggable, Droppable } from "react-beautiful-dnd";
 
 const ToDoColumn = forwardRef(({ query }, ref) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const { toDos } = useSelector((state) => selectFilteredToDos(state, query));
 
-  //   console.log({ to });
   return (
     <div ref={ref} style={{ flex: 1 }}>
       <Space direction="vertical" size={12} style={{ width: "100%" }}>
@@ -34,19 +33,40 @@ const ToDoColumn = forwardRef(({ query }, ref) => {
           ></div>
           <h4>To Do</h4>
         </Flex>
-        <div
-          style={{
-            maxHeight: "calc(100vh - 340px)",
-            overflow: "scroll",
-            scrollbarGutter: "stable",
-          }}
-        >
-          <Space direction="vertical">
-            {toDos?.map((todo) => (
-              <TaskItem key={todo.id} todo={todo} path="toDos" />
-            ))}
-          </Space>
-        </div>
+        <Droppable droppableId="toDos">
+          {(provided, snap) => (
+            <Space
+              style={{
+                maxHeight: "calc(100vh - 340px)",
+                overflow: "scroll",
+                scrollbarGutter: "stable",
+              }}
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+              direction="vertical"
+            >
+              {toDos?.map((todo, index) => (
+                <Draggable
+                  key={todo.id}
+                  index={index}
+                  draggableId={todo.id.toString()}
+                >
+                  {(provided) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      className="task-item"
+                    >
+                      <TaskItem todo={todo} path={"toDos"} />
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </Space>
+          )}
+        </Droppable>
         <Button
           size="large"
           type="primary"

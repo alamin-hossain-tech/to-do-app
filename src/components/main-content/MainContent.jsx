@@ -3,9 +3,33 @@ import CompletedColumn from "../completed-column/CompletedColumn";
 import InProgressColumn from "../in-progress-column/InProgressColumn";
 import ToDoColumn from "../todo-colum/ToDoColumn";
 import { useState } from "react";
+import { DragDropContext } from "react-beautiful-dnd";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { mutateTask } from "../../app/features/to-do/todo.slice";
 
 const MainContent = () => {
+  const state = useSelector((state) => state.toDos);
   const [query, setQuery] = useState("all");
+  const dispatch = useDispatch();
+  const onDragEnd = (result) => {
+    const { destination, source } = result;
+    if (!result.destination) return;
+
+    if (destination.droppableId === source.droppableId) {
+      const newItems = Array.from(state[destination.droppableId]);
+      const [removed] = newItems.splice(source.index, 1);
+      newItems.splice(destination.index, 0, removed);
+      dispatch(
+        mutateTask({
+          path: destination.droppableId,
+          value: newItems,
+        })
+      );
+    } else {
+      console.log("false");
+    }
+  };
   return (
     <Flex gap={"large"}>
       <div style={{ flex: 3 }}>
@@ -31,9 +55,11 @@ const MainContent = () => {
         </Flex>
         <Divider />
         <Flex gap={"large"}>
-          <ToDoColumn query={query} />
-          <InProgressColumn />
-          <CompletedColumn />
+          <DragDropContext onDragEnd={onDragEnd}>
+            <ToDoColumn query={query} />
+            <InProgressColumn />
+            <CompletedColumn />
+          </DragDropContext>
         </Flex>
       </div>
       <div

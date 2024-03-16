@@ -11,6 +11,12 @@ const todoSlice = createSlice({
   name: "to-dos",
   initialState,
   reducers: {
+    mutateTask: (state, action) => {
+      const { path, value } = action.payload;
+      return produce(state, (draftState) => {
+        draftState[path] = value;
+      });
+    },
     addTask: (state, action) => {
       const { path, value } = action.payload;
       return produce(state, (draftState) => {
@@ -27,6 +33,6 @@ const todoSlice = createSlice({
   },
 });
 
-export const { mutateTask } = todoSlice.actions;
+export const { addTask, deleteTask, mutateTask } = todoSlice.actions;
 
 export default todoSlice.reducer;

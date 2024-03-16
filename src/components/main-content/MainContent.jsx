@@ -1,25 +1,9 @@
-import { Button, Divider, Flex, Input, Modal, Select, Space } from "antd";
-import PlusIcon from "../icons/plus-icon";
-import { useState } from "react";
-import TextArea from "antd/es/input/TextArea";
-import { useDispatch, useSelector } from "react-redux";
-import { mutateTask } from "../../app/features/to-do/todo.slice";
+import { Divider, Flex, Select } from "antd";
+import CompletedColumn from "../completed-column/CompletedColumn";
+import InProgressColumn from "../in-progress-column/InProgressColumn";
+import ToDoColumn from "../todo-colum/ToDoColumn";
 
 const MainContent = () => {
-  const tasks = useSelector((state) => state.toDos);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const dispatch = useDispatch();
-  console.log(tasks);
-  const handleSave = () => {
-    dispatch(
-      mutateTask({
-        path: "toDos",
-        value: {
-          hello: "1",
-        },
-      })
-    );
-  };
   return (
     <Flex gap={"large"}>
       <div style={{ flex: 3 }}>
@@ -37,160 +21,9 @@ const MainContent = () => {
         </Flex>
         <Divider />
         <Flex gap={"large"}>
-          <Space direction="vertical" size={12} style={{ flex: 1 }}>
-            <Flex
-              align="center"
-              gap={"small"}
-              style={{
-                backgroundColor: "white",
-                padding: "12px 24px",
-                borderRadius: 8,
-              }}
-            >
-              <div
-                style={{
-                  width: "16px",
-                  height: "16px",
-                  backgroundColor: "var(--text-10)",
-                  borderRadius: 4,
-                }}
-              ></div>
-              <h4>To Do</h4>
-            </Flex>
-            <Button
-              size="large"
-              type="primary"
-              style={{ width: "100%" }}
-              icon={<PlusIcon />}
-              onClick={() => setIsModalOpen(true)}
-            >
-              Add New Task
-            </Button>
-            <Modal
-              title="Add New Task"
-              open={isModalOpen}
-              onOk={handleSave}
-              onCancel={() => setIsModalOpen(false)}
-              okText="Save"
-              okButtonProps={{ type: "primary" }}
-            >
-              <Space size={12} direction="vertical" style={{ width: "100%" }}>
-                <div>
-                  <div>
-                    <label htmlFor="priority">Select Priority</label>
-                  </div>
-                  <Select
-                    id="priority"
-                    placeholder="Select priority"
-                    allowClear
-                    style={{ width: 150 }}
-                    options={[
-                      {
-                        label: (
-                          <Space align="center">
-                            <div
-                              style={{
-                                width: 10,
-                                height: 10,
-                                borderRadius: 4,
-                                backgroundColor: "#90EE90",
-                              }}
-                            ></div>
-                            <span>Low</span>
-                          </Space>
-                        ),
-                        value: "low",
-                      },
-                      {
-                        label: (
-                          <Space align="center">
-                            <div
-                              style={{
-                                width: 10,
-                                height: 10,
-                                borderRadius: 4,
-                                backgroundColor: "#FFD700",
-                              }}
-                            ></div>
-                            <span>Medium</span>
-                          </Space>
-                        ),
-                        value: "medium",
-                      },
-                      {
-                        label: (
-                          <Space align="center">
-                            <div
-                              style={{
-                                width: 10,
-                                height: 10,
-                                borderRadius: 4,
-                                backgroundColor: "#FFA07A",
-                              }}
-                            ></div>
-                            <span>High</span>
-                          </Space>
-                        ),
-                        value: "high",
-                      },
-                    ]}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="name">Task Name</label>
-                  <Input id="name" />
-                </div>
-                <div>
-                  <label htmlFor="description">Task Description</label>
-                  <TextArea id="description" rows={4} />
-                </div>
-              </Space>
-            </Modal>
-          </Space>
-          <div style={{ flex: 1 }}>
-            <Flex
-              align="center"
-              gap={"small"}
-              style={{
-                backgroundColor: "white",
-                padding: "12px 24px",
-                borderRadius: 8,
-                color: "var(--primary-color)",
-              }}
-            >
-              <div
-                style={{
-                  width: "16px",
-                  height: "16px",
-                  backgroundColor: "var(--primary-color)",
-                  borderRadius: 4,
-                }}
-              ></div>
-              <h4>In Progress</h4>
-            </Flex>
-          </div>
-          <div style={{ flex: 1 }}>
-            <Flex
-              align="center"
-              gap={"small"}
-              style={{
-                backgroundColor: "white",
-                padding: "12px 24px",
-                borderRadius: 8,
-                color: "var(--green-100)",
-              }}
-            >
-              <div
-                style={{
-                  width: "16px",
-                  height: "16px",
-                  backgroundColor: "var(--green-100)",
-                  borderRadius: 4,
-                }}
-              ></div>
-              <h4>Completed</h4>
-            </Flex>
-          </div>
+          <ToDoColumn />
+          <InProgressColumn />
+          <CompletedColumn />
         </Flex>
       </div>
       <div

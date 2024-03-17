@@ -93,7 +93,7 @@ const MainContent = () => {
           <DragDropContext onDragEnd={onDragEnd}>
             <ToDoColumn query={query} />
             <InProgressColumn query={query} />
-            <CompletedColumn />
+            <CompletedColumn query={query} />
           </DragDropContext>
         </Flex>
       </div>

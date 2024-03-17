@@ -1,9 +1,8 @@
 import { Flex, Space } from "antd";
-import React from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
-import TaskItem from "../task-item/TaskItem";
 import { useSelector } from "react-redux";
 import { selectFilteredToDos } from "../../app/features/to-do/todo.slice";
+import TaskItem from "../task-item/TaskItem";
 
 const InProgressColumn = ({ query }) => {
   const { inProgress } = useSelector((state) =>

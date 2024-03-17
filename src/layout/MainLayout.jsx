@@ -15,7 +15,7 @@ const MainLayout = ({ children }) => {
   const [selectedMenu, setSelectedMenu] = useState("Task");
   const dateFormat = "DD/MM/YYYY";
 
-  const [breakOccur, setBreakOccur] = useState(false);
+  const [breakOccur, setBreakOccur] = useState(true);
 
   const headerStyle = {
     paddingInline: "40px",

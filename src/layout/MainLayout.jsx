@@ -11,44 +11,53 @@ import SearchIcon from "../components/icons/search-icon";
 import dayjs from "dayjs";
 const { Header, Sider, Content } = Layout;
 
-const headerStyle = {
-  paddingInline: "40px",
-  height: 64,
-  backgroundColor: "var(--white-color)",
-};
-const contentStyle = {
-  padding: "40px",
-};
-const siderStyle = {
-  padding: "20px 35px",
-  backgroundColor: "var(--white-color)",
-  height: "100vh",
-  textAlign: "center",
-};
-
-const layoutStyle = {
-  overflow: "hidden",
-  width: "100%",
-};
-
-const menuList = [
-  { id: "item-1", name: "Dashboard", icon: <DashboardIcon /> },
-  { id: "item-2", name: "Task", icon: <TaskIcon /> },
-  { id: "item-3", name: "Analytics", icon: <AnalyticsIcon /> },
-  { id: "item-4", name: "Profile", icon: <ProfileIcon /> },
-  { id: "item-5", name: "Message", icon: <MessageIcon /> },
-  { id: "item-6", name: "Setting", icon: <SettingIcon /> },
-  { id: "item-7", name: "Log out", icon: <LogoutIcon /> },
-];
-
 const MainLayout = ({ children }) => {
   const [selectedMenu, setSelectedMenu] = useState("Task");
   const dateFormat = "DD/MM/YYYY";
 
+  const [breakOccur, setBreakOccur] = useState(false);
+
+  const headerStyle = {
+    paddingInline: "40px",
+    height: 64,
+    backgroundColor: "var(--white-color)",
+  };
+  const contentStyle = {
+    padding: breakOccur ? "12px" : "40px",
+    // overflowX: "scroll",
+  };
+  const siderStyle = {
+    padding: "20px 35px",
+    backgroundColor: "var(--white-color)",
+    height: "100vh",
+    textAlign: "center",
+  };
+
+  const layoutStyle = {
+    overflow: "hidden",
+    width: "100%",
+  };
+
+  const menuList = [
+    { id: "item-1", name: "Dashboard", icon: <DashboardIcon /> },
+    { id: "item-2", name: "Task", icon: <TaskIcon /> },
+    { id: "item-3", name: "Analytics", icon: <AnalyticsIcon /> },
+    { id: "item-4", name: "Profile", icon: <ProfileIcon /> },
+    { id: "item-5", name: "Message", icon: <MessageIcon /> },
+    { id: "item-6", name: "Setting", icon: <SettingIcon /> },
+    { id: "item-7", name: "Log out", icon: <LogoutIcon /> },
+  ];
+
   return (
     <Layout style={layoutStyle}>
-      <Sider width="260px" style={siderStyle}>
-        <Image src="logo.png" width={"50px"} />
+      <Sider
+        width="260px"
+        breakpoint="sm"
+        // Set collapsedWidth to 0 to hide Sider on small devices
+        onBreakpoint={(broken) => setBreakOccur(!breakOccur)}
+        style={{ ...siderStyle, display: breakOccur ? "none" : "block" }}
+      >
+        <Image preview={false} src="logo.png" width={"50px"} />
         <Flex vertical gap={"middle"} style={{ marginTop: "24px" }}>
           {menuList.map((menuItem) => (
             <Flex
@@ -81,7 +90,9 @@ const MainLayout = ({ children }) => {
       <Layout>
         <Header style={headerStyle}>
           <Flex align="center" justify="space-between">
-            <h2>To Do</h2>
+            <h2 style={{ display: breakOccur ? "none" : "block" }}>
+              To Do Management App
+            </h2>
             <Flex gap={"middle"} align="center">
               <Input
                 size="medium"

@@ -12,7 +12,7 @@ const ToDoColumn = forwardRef(({ query }, ref) => {
   const { toDos } = useSelector((state) => selectFilteredToDos(state, query));
 
   return (
-    <div ref={ref} style={{ flex: 1 }}>
+    <div ref={ref} style={{ flex: 1, minWidth: "200px" }}>
       <Space direction="vertical" size={12} style={{ width: "100%" }}>
         <Flex
           align="center"

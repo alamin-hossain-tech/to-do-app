@@ -1,16 +1,15 @@
-import { Col, Divider, Flex, List, Row, Select, Space, Statistic } from "antd";
-import CompletedColumn from "../completed-column/CompletedColumn";
-import InProgressColumn from "../in-progress-column/InProgressColumn";
-import ToDoColumn from "../todo-colum/ToDoColumn";
+import { Col, Divider, Flex, Row, Select, Space, Statistic } from "antd";
 import { useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   mutateTask,
   selectFilteredToDos,
 } from "../../app/features/to-do/todo.slice";
+import CompletedColumn from "../completed-column/CompletedColumn";
+import InProgressColumn from "../in-progress-column/InProgressColumn";
 import StatsPieChart from "../stats-pie-chart/StatsPieChart";
+import ToDoColumn from "../todo-colum/ToDoColumn";
 
 const MainContent = () => {
   const [query, setQuery] = useState("all");
@@ -76,7 +75,7 @@ const MainContent = () => {
     }
   };
   return (
-    <Flex gap={"large"}>
+    <Flex gap={"large"} className="main-content-box">
       <div style={{ flex: 3, flexShrink: 0 }}>
         <Flex justify="space-between">
           <h3>All my task</h3>
@@ -99,7 +98,7 @@ const MainContent = () => {
           />
         </Flex>
         <Divider />
-        <Flex gap={"large"}>
+        <Flex gap={"large"} style={{ overflowX: "auto", paddingBottom: 8 }}>
           <DragDropContext onDragEnd={onDragEnd}>
             <ToDoColumn query={query} />
             <InProgressColumn query={query} />
@@ -189,44 +188,44 @@ const MainContent = () => {
             </Col>
           </Row>
           <Divider />
-          <div style={{ height: 200, textAlign: "center" }}>
+          <div style={{ height: "200px", textAlign: "center" }}>
             <StatsPieChart stats={stats} />
-            <Space size={24} style={{ marginTop: 24 }}>
-              <Flex align="center" gap={5}>
-                <div
-                  style={{
-                    width: 16,
-                    height: 16,
-                    backgroundColor: "#00C49F",
-                    borderRadius: 4,
-                  }}
-                ></div>
-                <p>Completed</p>
-              </Flex>
-              <Flex align="center" gap={5}>
-                <div
-                  style={{
-                    width: 16,
-                    height: 16,
-                    backgroundColor: "#0088FE",
-                    borderRadius: 4,
-                  }}
-                ></div>
-                <p>Doing</p>
-              </Flex>
-              <Flex align="center" gap={5}>
-                <div
-                  style={{
-                    width: 16,
-                    height: 16,
-                    backgroundColor: "#FF8042",
-                    borderRadius: 4,
-                  }}
-                ></div>
-                <p>Remaining</p>
-              </Flex>
-            </Space>
           </div>
+          <Flex justify="center" gap={"middle"} style={{ marginTop: 24 }}>
+            <Flex align="center" gap={5}>
+              <div
+                style={{
+                  width: 16,
+                  height: 16,
+                  backgroundColor: "#00C49F",
+                  borderRadius: 4,
+                }}
+              ></div>
+              <p>Completed</p>
+            </Flex>
+            <Flex align="center" gap={5}>
+              <div
+                style={{
+                  width: 16,
+                  height: 16,
+                  backgroundColor: "#0088FE",
+                  borderRadius: 4,
+                }}
+              ></div>
+              <p>Doing</p>
+            </Flex>
+            <Flex align="center" gap={5}>
+              <div
+                style={{
+                  width: 16,
+                  height: 16,
+                  backgroundColor: "#FF8042",
+                  borderRadius: 4,
+                }}
+              ></div>
+              <p>Remaining</p>
+            </Flex>
+          </Flex>
         </div>
       </div>
     </Flex>

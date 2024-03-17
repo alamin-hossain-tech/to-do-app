@@ -33,3 +33,9 @@ h6,
 p {
   margin: 0;
 }
+
+@media (max-width: 768px) {
+  .main-content-box {
+    flex-direction: column;
+  }
+}

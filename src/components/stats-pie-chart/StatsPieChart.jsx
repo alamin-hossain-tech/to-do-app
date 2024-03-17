@@ -15,8 +15,8 @@ const StatsPieChart = ({ stats }) => {
   const COLORS = ["#00C49F", "#FF8042", "#0088FE"];
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
-      <PieChart>
+    <ResponsiveContainer>
+      <PieChart height={200}>
         <Pie
           data={data}
           innerRadius={70}

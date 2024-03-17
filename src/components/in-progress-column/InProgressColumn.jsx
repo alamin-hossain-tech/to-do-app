@@ -10,7 +10,7 @@ const InProgressColumn = ({ query }) => {
   );
 
   return (
-    <div style={{ flex: 1 }}>
+    <div style={{ flex: 1, minWidth: "200px" }}>
       <Space direction="vertical" size={12} style={{ width: "100%" }}>
         <Flex
           align="center"

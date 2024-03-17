@@ -20,7 +20,10 @@ const MainLayout = ({ children }) => {
     height: 64,
     backgroundColor: "var(--white-color)",
   };
-
+  const contentStyle = {
+    // padding: "40px",
+    // overflowX: "scroll",
+  };
   const siderStyle = {
     padding: "20px 35px",
     backgroundColor: "var(--white-color)",

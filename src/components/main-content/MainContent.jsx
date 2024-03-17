@@ -25,7 +25,6 @@ const MainContent = () => {
     if (destination.droppableId === source.droppableId) {
       const prevArray = Array.from(state[destination.droppableId]);
       const newItems = Array.from(filterState[destination.droppableId]);
-      console.log(source.index, destination.index, { newItems });
       const [removed] = newItems.splice(source.index, 1);
       newItems.splice(destination.index, 0, removed);
       const mergedArray = newItems.concat(
@@ -38,7 +37,32 @@ const MainContent = () => {
         })
       );
     } else {
-      console.log("false");
+      const prevSourceArray = Array.from(state[source.droppableId]);
+      const sourceArray = Array.from(filterState[source.droppableId]);
+      const prevDestinationArray = Array.from(state[destination.droppableId]);
+      const destinationArray = Array.from(filterState[destination.droppableId]);
+      const [removed] = sourceArray.splice(source.index, 1);
+      destinationArray.splice(destination.index, 0, removed);
+      const mergedDestinationArray = destinationArray.concat(
+        prevDestinationArray.filter((item) => !destinationArray.includes(item))
+      );
+
+      const mergedSourceArray = sourceArray
+        .concat(prevSourceArray.filter((item) => !sourceArray.includes(item)))
+        .filter((item) => item !== removed);
+
+      dispatch(
+        mutateTask({
+          path: destination.droppableId,
+          value: mergedDestinationArray,
+        })
+      );
+      dispatch(
+        mutateTask({
+          path: source.droppableId,
+          value: mergedSourceArray,
+        })
+      );
     }
   };
   return (
@@ -68,7 +92,7 @@ const MainContent = () => {
         <Flex gap={"large"}>
           <DragDropContext onDragEnd={onDragEnd}>
             <ToDoColumn query={query} />
-            <InProgressColumn />
+            <InProgressColumn query={query} />
             <CompletedColumn />
           </DragDropContext>
         </Flex>

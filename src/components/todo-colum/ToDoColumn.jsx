@@ -41,6 +41,11 @@ const ToDoColumn = forwardRef(({ query }, ref) => {
                 overflow: "scroll",
                 scrollbarGutter: "stable",
                 width: "100%",
+                backgroundColor: snap.isUsingPlaceholder
+                  ? "var(--text-10)"
+                  : "transparent",
+                minHeight: 20,
+                borderRadius: 4,
               }}
               ref={provided.innerRef}
               {...provided.droppableProps}

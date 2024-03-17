@@ -6,24 +6,35 @@ import { useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { mutateTask } from "../../app/features/to-do/todo.slice";
+import {
+  mutateTask,
+  selectFilteredToDos,
+} from "../../app/features/to-do/todo.slice";
 
 const MainContent = () => {
-  const state = useSelector((state) => state.toDos);
   const [query, setQuery] = useState("all");
+  const state = useSelector((state) => state.toDos);
+  const filterState = useSelector((state) => selectFilteredToDos(state, query));
   const dispatch = useDispatch();
+
+  // handle drag and drop
   const onDragEnd = (result) => {
     const { destination, source } = result;
     if (!result.destination) return;
 
     if (destination.droppableId === source.droppableId) {
-      const newItems = Array.from(state[destination.droppableId]);
+      const prevArray = Array.from(state[destination.droppableId]);
+      const newItems = Array.from(filterState[destination.droppableId]);
+      console.log(source.index, destination.index, { newItems });
       const [removed] = newItems.splice(source.index, 1);
       newItems.splice(destination.index, 0, removed);
+      const mergedArray = newItems.concat(
+        prevArray.filter((item) => !newItems.includes(item))
+      );
       dispatch(
         mutateTask({
           path: destination.droppableId,
-          value: newItems,
+          value: mergedArray,
         })
       );
     } else {

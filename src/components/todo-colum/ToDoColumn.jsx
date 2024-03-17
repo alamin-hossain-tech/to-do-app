@@ -40,6 +40,7 @@ const ToDoColumn = forwardRef(({ query }, ref) => {
                 maxHeight: "calc(100vh - 340px)",
                 overflow: "scroll",
                 scrollbarGutter: "stable",
+                width: "100%",
               }}
               ref={provided.innerRef}
               {...provided.droppableProps}

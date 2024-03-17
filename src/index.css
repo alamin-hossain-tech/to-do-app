@@ -38,4 +38,13 @@ p {
   .main-content-box {
     flex-direction: column;
   }
+
+  .app-sidebar,
+  .title-logo {
+    display: none;
+  }
+
+  .content-style {
+    padding: 12px;
+  }
 }

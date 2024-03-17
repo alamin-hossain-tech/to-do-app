@@ -15,15 +15,13 @@ const MainLayout = ({ children }) => {
   const [selectedMenu, setSelectedMenu] = useState("Task");
   const dateFormat = "DD/MM/YYYY";
 
-  const [breakOccur, setBreakOccur] = useState(true);
-
   const headerStyle = {
     paddingInline: "40px",
     height: 64,
     backgroundColor: "var(--white-color)",
   };
   const contentStyle = {
-    padding: breakOccur ? "12px" : "40px",
+    padding: "40px",
     // overflowX: "scroll",
   };
   const siderStyle = {
@@ -54,8 +52,9 @@ const MainLayout = ({ children }) => {
         width="260px"
         breakpoint="md"
         // Set collapsedWidth to 0 to hide Sider on small devices
-        onBreakpoint={(broken) => setBreakOccur(!breakOccur)}
-        style={{ ...siderStyle, display: breakOccur ? "none" : "block" }}
+
+        className="app-sidebar"
+        style={{ ...siderStyle }}
       >
         <Image preview={false} src="logo.png" width={"50px"} />
         <Flex vertical gap={"middle"} style={{ marginTop: "24px" }}>
@@ -90,9 +89,7 @@ const MainLayout = ({ children }) => {
       <Layout>
         <Header style={headerStyle}>
           <Flex align="center" justify="space-between">
-            <h2 style={{ display: breakOccur ? "none" : "block" }}>
-              To Do Management App
-            </h2>
+            <h2 className="title-logo">To Do Management App</h2>
             <Flex gap={"middle"} align="center">
               <Input
                 size="medium"
@@ -114,7 +111,9 @@ const MainLayout = ({ children }) => {
             </Flex>
           </Flex>
         </Header>
-        <Content style={contentStyle}>{children}</Content>
+        <Content style={contentStyle} className="content-style">
+          {children}
+        </Content>
       </Layout>
     </Layout>
   );

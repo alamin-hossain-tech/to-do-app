@@ -19,3 +19,7 @@ This is a simple Todo List application built using React (reactjs) and Vite. The
 ## Live Demo
 
 Check out the live demo [link](https://to-do-management-app.vercel.app/)
+
+## UI credits
+
+Design inspired by [Figma community](https://www.figma.com/community)

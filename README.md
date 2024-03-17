@@ -1,8 +1,21 @@
-# React + Vite
+# Todo Management Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a simple Todo List application built using React (reactjs) and Vite. The application allows users to add, edit, and delete tasks. Each task can have a priority (low, medium, or high), with each priority represented by a different color. Task items can be drag and drop for reorder and move items.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Task Management: Users can add, edit, and delete tasks.
+- Task Status: Tasks can be moved to the in progress or completed column by dragging.
+- Priority Levels: Tasks can have priority levels (low, medium, high) represented by different colors.
+- Drag and Drop: Implemented drag and drop functionality for reordering and moving tasks to different columns.
+
+## Technologies Used
+
+- Vite(ReactJs)
+- Ant Design UI Library
+- Redux RTK
+- React Beautiful DND
+
+## Live Demo
+
+Check out the live demo [link](https://to-do-management-app.vercel.app/)

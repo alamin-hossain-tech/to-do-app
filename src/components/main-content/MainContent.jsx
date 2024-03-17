@@ -1,4 +1,4 @@
-import { Divider, Flex, Select } from "antd";
+import { Col, Divider, Flex, List, Row, Select, Space, Statistic } from "antd";
 import CompletedColumn from "../completed-column/CompletedColumn";
 import InProgressColumn from "../in-progress-column/InProgressColumn";
 import ToDoColumn from "../todo-colum/ToDoColumn";
@@ -16,6 +16,15 @@ const MainContent = () => {
   const state = useSelector((state) => state.toDos);
   const filterState = useSelector((state) => selectFilteredToDos(state, query));
   const dispatch = useDispatch();
+
+  const stats = {
+    total: Object.keys(state)
+      .map((key) => state[key].length)
+      .reduce((accumulator, currentValue) => accumulator + currentValue, 0),
+    completed: state.completed.length,
+    inProgress: state.inProgress.length,
+    toDo: state.toDos.length,
+  };
 
   // handle drag and drop
   const onDragEnd = (result) => {
@@ -67,7 +76,7 @@ const MainContent = () => {
   };
   return (
     <Flex gap={"large"}>
-      <div style={{ flex: 3 }}>
+      <div style={{ flex: 3, flexShrink: 0 }}>
         <Flex justify="space-between">
           <h3>All my task</h3>
           <Select
@@ -100,11 +109,87 @@ const MainContent = () => {
       <div
         style={{
           flex: 1,
+          // flexShrink: 0,
           backgroundColor: "white",
           height: "calc(100vh - 144px)",
           borderRadius: "8px",
+          // padding: 8,
         }}
-      ></div>
+      >
+        {/* Stats  */}
+        <div style={{ padding: 20 }}>
+          <div style={{ color: "var(--text-color)", textAlign: "center" }}>
+            <h3> Priority Indicator :</h3>
+            <Space size={24}>
+              <Flex align="center" gap={5}>
+                <div
+                  style={{
+                    width: 32,
+                    height: 8,
+                    backgroundColor: "#FFA07A",
+                    borderRadius: 4,
+                  }}
+                ></div>
+                <p>High</p>
+              </Flex>
+              <Flex align="center" gap={5}>
+                <div
+                  style={{
+                    width: 32,
+                    height: 8,
+                    backgroundColor: "#FFD700",
+                    borderRadius: 4,
+                  }}
+                ></div>
+                <p>Medium</p>
+              </Flex>
+              <Flex align="center" gap={5}>
+                <div
+                  style={{
+                    width: 32,
+                    height: 8,
+                    backgroundColor: "#90EE90",
+                    borderRadius: 4,
+                  }}
+                ></div>
+                <p>Low</p>
+              </Flex>
+            </Space>
+          </div>
+          <Divider />
+          <Row gutter={[24, 24]}>
+            <Col span={12}>
+              <Statistic
+                style={{ textAlign: "center" }}
+                title="Total Task"
+                value={stats.total}
+              />
+            </Col>
+            <Col span={12}>
+              <Statistic
+                style={{ textAlign: "center" }}
+                title="Completed Task"
+                value={stats.completed}
+              />
+            </Col>
+            <Col span={12}>
+              <Statistic
+                title="Remaining Task"
+                style={{ textAlign: "center" }}
+                value={stats.toDo}
+              />
+            </Col>
+            <Col span={12}>
+              <Statistic
+                style={{ textAlign: "center" }}
+                title="In Progress"
+                value={stats.inProgress}
+              />
+            </Col>
+          </Row>
+          <Divider />
+        </div>
+      </div>
     </Flex>
   );
 };

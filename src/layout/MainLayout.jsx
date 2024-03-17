@@ -52,7 +52,7 @@ const MainLayout = ({ children }) => {
     <Layout style={layoutStyle}>
       <Sider
         width="260px"
-        breakpoint="sm"
+        breakpoint="md"
         // Set collapsedWidth to 0 to hide Sider on small devices
         onBreakpoint={(broken) => setBreakOccur(!breakOccur)}
         style={{ ...siderStyle, display: breakOccur ? "none" : "block" }}

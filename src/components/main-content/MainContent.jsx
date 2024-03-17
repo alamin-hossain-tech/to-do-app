@@ -10,6 +10,7 @@ import {
   mutateTask,
   selectFilteredToDos,
 } from "../../app/features/to-do/todo.slice";
+import StatsPieChart from "../stats-pie-chart/StatsPieChart";
 
 const MainContent = () => {
   const [query, setQuery] = useState("all");
@@ -119,7 +120,7 @@ const MainContent = () => {
         {/* Stats  */}
         <div style={{ padding: 20 }}>
           <div style={{ color: "var(--text-color)", textAlign: "center" }}>
-            <h3> Priority Indicator :</h3>
+            <h4> Priority Indicator</h4>
             <Space size={24}>
               <Flex align="center" gap={5}>
                 <div
@@ -188,6 +189,44 @@ const MainContent = () => {
             </Col>
           </Row>
           <Divider />
+          <div style={{ height: 200, textAlign: "center" }}>
+            <StatsPieChart stats={stats} />
+            <Space size={24} style={{ marginTop: 24 }}>
+              <Flex align="center" gap={5}>
+                <div
+                  style={{
+                    width: 16,
+                    height: 16,
+                    backgroundColor: "#00C49F",
+                    borderRadius: 4,
+                  }}
+                ></div>
+                <p>Completed</p>
+              </Flex>
+              <Flex align="center" gap={5}>
+                <div
+                  style={{
+                    width: 16,
+                    height: 16,
+                    backgroundColor: "#0088FE",
+                    borderRadius: 4,
+                  }}
+                ></div>
+                <p>Doing</p>
+              </Flex>
+              <Flex align="center" gap={5}>
+                <div
+                  style={{
+                    width: 16,
+                    height: 16,
+                    backgroundColor: "#FF8042",
+                    borderRadius: 4,
+                  }}
+                ></div>
+                <p>Remaining</p>
+              </Flex>
+            </Space>
+          </div>
         </div>
       </div>
     </Flex>
